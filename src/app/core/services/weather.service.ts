@@ -1,15 +1,12 @@
-// Suggested code may be subject to a license. Learn more: ~LicenseLog:3103711828.
-
 import { Injectable, OnInit, WritableSignal, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { LocationsModel } from '../models/locationsModel';
 
 @Injectable({
   providedIn: 'root'
 })
-export class WeatherService implements OnInit{
+export class WeatherService{
   // Injections
   private http = inject(HttpClient);
 
@@ -19,13 +16,13 @@ export class WeatherService implements OnInit{
   public response: WritableSignal<LocationsModel[] | null> = signal(null); // Signal to store the API response
 
   constructor() {
+    this.getLocation() // Get user location on construct
   }
 
-  ngOnInit(){
-    this.getLocation(); // Get the user's location on initialization
-  }
-
-  getLocation(): void {
+  /**
+   * Get the user's location.
+   */
+  getLocation(){
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -41,8 +38,14 @@ export class WeatherService implements OnInit{
     }
   }
 
+  /**
+   * Perform a place search using the provided location.
+   *
+   * @param local - The location to search for.
+   */
   placesSearch(local: string){
     this.http.get(`${environment.baseUrl}/search.json?key=${environment.apiKey}&q=${local}`)
     .subscribe(response => console.log(response)); // Log the API response
   }
 }
+
