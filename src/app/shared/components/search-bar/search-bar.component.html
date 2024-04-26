@@ -1,1 +1,4 @@
 <p>search-bar works!</p>
+<input type="text" #searchBar (input)="updateSearchSignal(searchBar)"/>
+<button (click)="search()">Search</button>
+{{ searchInput() }}

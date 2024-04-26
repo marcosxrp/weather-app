@@ -1,7 +1,6 @@
-import { Component, ElementRef, ViewChild, effect, inject, signal} from '@angular/core';
+import { Component} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { WeatherService } from './core/services/weather.service';
 
 @Component({
   selector: 'app-root',
