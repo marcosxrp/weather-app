@@ -35,7 +35,7 @@ export class SearchBarComponent {
  */
   search() {
     // Check if the debounced search input value is not empty.
-    if(this.debouncedSearchInput() !== ''){
+    if(this.debouncedSearchInput() !== '' && this.debouncedSearchInput().length > 3){
       // Call the placesSearch method of the weatherservice object, passing in the debounced search input value.
       this.weatherservice.placesSearch(this.debouncedSearchInput());
     }
