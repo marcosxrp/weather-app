@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, computed, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -10,13 +10,14 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css'
 })
 export class AppComponent{
-  class = 'sunny'
+  class = signal('sunny');
+  background = computed(() => `url(assets/${this.class()}_background.jpg)`)
 
   constructor() {
   }
 
   getBackground(){
-    switch(this.class){
+    switch(this.class()){
       case "sunny": 
         return 'url(assets/sunny_background.jpg)'
       case "rainy": 
@@ -35,19 +36,20 @@ export class AppComponent{
   }
 
   changeBackground(){
-    if(this.class == 'sunny'){
-      this.class = 'rainy'
-    }else if(this.class === 'rainy'){
-      this.class = 'night'
-    }else if(this.class === 'night'){
-      this.class = 'storm'
-    }else if(this.class === 'storm'){
-      this.class = 'snowing'
-    }else if(this.class === 'snowing'){
-      this.class = 'cloudy'
-    }else if(this.class === 'cloudy'){
-      this.class = 'sunny'
+    if(this.class() == 'sunny'){
+      this.class.set('rainy')
+    }else if(this.class() === 'rainy'){
+      this.class.set('night')
+    }else if(this.class() === 'night'){
+      this.class.set('storm')
+    }else if(this.class() === 'storm'){
+      this.class.set('snowing')
+    }else if(this.class() === 'snowing'){
+      this.class.set('cloudy')
+    }else if(this.class() === 'cloudy'){
+      this.class.set('sunny')
     }
   }
+
 
 }
