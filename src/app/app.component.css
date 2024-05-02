@@ -1,0 +1,9 @@
+.main_container{
+    min-height: 100vh;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-blend-mode: darken;
+}

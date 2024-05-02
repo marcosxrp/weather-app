@@ -1,1 +1,4 @@
-<router-outlet></router-outlet>
+<div class="main_container" [ngStyle]="{'background-image': getBackground()}">
+    <router-outlet></router-outlet>
+    <button (click)="changeBackground()">change</button>
+</div>

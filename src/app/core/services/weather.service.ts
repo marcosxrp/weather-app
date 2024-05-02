@@ -11,12 +11,14 @@ export class WeatherService{
   private http = inject(HttpClient);
 
   // Variables
+  private userLanguage = signal('');
   private latitude: WritableSignal<number | null> = signal(null); // Signal to store the latitude
   private longitude: WritableSignal<number | null> = signal(null); // Signal to store the longitude
   public response: WritableSignal<LocationsModel[] | null> = signal(null); // Signal to store the API response
 
   constructor() {
     this.getLocation() // Get user location on construct
+    this.userLanguage.set(navigator.language.split('-')[0]);
   }
 
   /**
