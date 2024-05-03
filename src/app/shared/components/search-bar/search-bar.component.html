@@ -1,3 +1,11 @@
 <div class="search-bar_container">
-    <input type="text" #searchBar (input)="updateSearchSignal(searchBar)"/>
+    <button (click)="toggleInputState()" >
+        <img src="assets/search-alt-regular-24.png" alt="search icon">
+    </button>
+    <input 
+        type="text"
+        #searchBar 
+        (input)="updateSearchSignal(searchBar)" 
+        [@slideInOut]="inputState"
+    />
 </div>

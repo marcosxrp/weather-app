@@ -1,4 +1,4 @@
-import { Injectable, OnInit, WritableSignal, inject, signal } from '@angular/core';
+import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LocationsModel } from '../models/locationsModel';
@@ -12,8 +12,8 @@ export class WeatherService{
 
   // Variables
   private userLanguage = signal('');
-  private latitude: WritableSignal<number | null> = signal(null); // Signal to store the latitude
-  private longitude: WritableSignal<number | null> = signal(null); // Signal to store the longitude
+  latitude: WritableSignal<number | null> = signal(null); // Signal to store the latitude
+  longitude: WritableSignal<number | null> = signal(null); // Signal to store the longitude
   public response: WritableSignal<LocationsModel[] | null> = signal(null); // Signal to store the API response
 
   constructor() {

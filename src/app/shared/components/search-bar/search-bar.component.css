@@ -1,0 +1,34 @@
+div{
+    /* use this variables to control the design */
+    --max-width: 400px;
+    --height: 3rem;
+    --gap: 1rem;
+
+    display: flex;
+    justify-content: center;
+    gap: var(--gap);
+
+    & button{
+        height: var(--height);
+        width: var(--height);
+        background-color: var(--items-background);
+        border: 1px solid var(--border-color);
+        border-radius: calc(var(--height) / 2);
+    }
+
+    & input{
+        width: min(var(--max-width), 100% - var(--height) - var(--gap) - 2rem);
+        height: var(--height);
+        background-color: var(--items-background);
+        border: 1px solid var(--border-color);
+        border-radius: calc(var(--height) / 2);
+
+        color: var(--main-color);
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    & input:focus{
+        outline: none;
+    }
+}

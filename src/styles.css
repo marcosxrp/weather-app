@@ -12,3 +12,10 @@ body{
     background: rgb(49,167,186);
     background: linear-gradient(90deg, rgba(49,167,186,1) 0%, rgba(44,42,177,1) 100%);
 }
+
+:root{
+    --main-color: white;
+    --border-color: rgba(255,255,255,0.7);
+    --items-background: rgba(0,0,0,0.2)
+}
+
