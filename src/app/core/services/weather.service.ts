@@ -12,9 +12,10 @@ export class WeatherService{
 
   // Variables
   private userLanguage = signal('');
-  latitude: WritableSignal<number | null> = signal(null); // Signal to store the latitude
-  longitude: WritableSignal<number | null> = signal(null); // Signal to store the longitude
+  public latitude: WritableSignal<number | null> = signal(null); // Signal to store the latitude
+  public longitude: WritableSignal<number | null> = signal(null); // Signal to store the longitude
   public response: WritableSignal<LocationsModel[] | null> = signal(null); // Signal to store the API response
+  public selectedLocal: WritableSignal<LocationsModel | null> = signal(null); // Signal to store the selected local
 
   constructor() {
     this.getLocation() // Get user location on construct
@@ -28,8 +29,7 @@ export class WeatherService{
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          this.latitude.set(position.coords.latitude); // Set the latitude signal
-          this.longitude.set(position.coords.longitude); // Set the longitude signal
+          this.placesSearch(position.coords.latitude + ',' + position.coords.longitude);
         },
         (error) => {
           console.error('Error getting location:', error);
@@ -48,6 +48,10 @@ export class WeatherService{
   placesSearch(local: string){
     this.http.get(`${environment.baseUrl}/search.json?key=${environment.apiKey}&q=${local}`)
     .subscribe(response => console.log(response)); // Log the API response
+  }
+
+  selectLocal(local: LocationsModel){
+    this.selectedLocal.set(local);
   }
 }
 

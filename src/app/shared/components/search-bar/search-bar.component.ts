@@ -1,4 +1,4 @@
-import { Component, ElementRef, Signal, effect, inject, signal, viewChild} from '@angular/core';
+import { Component, ElementRef, Signal, WritableSignal, effect, inject, signal, viewChild} from '@angular/core';
 import { WeatherService } from '../../../core/services/weather.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
@@ -29,26 +29,15 @@ export class SearchBarComponent {
 
   // Variables
   private searchBar = viewChild<ElementRef>('searchBar');
-  private searchInput = signal('') // Signal to hold the search input value.
-  private debouncedSearchInput = this.debouncedSignal(this.searchInput, 1000);
-  protected inputState = 'out';
+  private searchInput: WritableSignal<string> = signal('') // Signal to hold the search input value.
+  private debouncedSignal = this.debounceSignal(this.searchInput, 1000);
+  protected inputState: string= 'out';
   
   constructor(){
     /** 
      * Do a search each time the input signal changes.
     */
-    effect(() => this.search())
-
-    /**
-     * Set the search input value to the latitude and longitude of the user's location.
-     */
-    effect(() => {
-      // Check if both latitude and longitude are disponible
-      if(this.weatherservice.latitude() && this.weatherservice.longitude()){
-        // Set the search input value to the latitude and longitude of the user's location.
-        this.searchInput.set(this.weatherservice.latitude() + ',' + this.weatherservice.longitude());
-      }
-    }, {allowSignalWrites: true})
+    effect(() => this.search());
   }
   
   /**
@@ -68,7 +57,7 @@ export class SearchBarComponent {
  * @param debounceTimeInMs - The debounce time in milliseconds. Defaults to 0.
  * @returns A debounced signal.
  */
-  debouncedSignal<T>(
+  debounceSignal<T>(
     sourceSignal: Signal<T>,
     debounceTimeInMs: number = 0
   ): Signal<T>{
@@ -103,9 +92,9 @@ export class SearchBarComponent {
  */
   search() {
     // Check if the debounced search input value is not empty.
-    if(this.debouncedSearchInput() !== '' && this.debouncedSearchInput().length > 3){
+    if(this.debouncedSignal() !== '' && this.debouncedSignal().length > 3){
       // Call the placesSearch method of the weatherservice object, passing in the debounced search input value.
-      this.weatherservice.placesSearch(this.debouncedSearchInput());
+      this.weatherservice.placesSearch(this.debouncedSignal());
     }
   }
   
