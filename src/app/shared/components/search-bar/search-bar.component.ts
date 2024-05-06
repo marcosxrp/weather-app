@@ -2,11 +2,13 @@ import { Component, ElementRef, Signal, WritableSignal, computed, effect, inject
 import { WeatherService } from '../../../core/services/weather.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { JsonPipe, DatePipe } from '@angular/common';
+import { take } from 'rxjs';
+import { OptionsComponent } from './options/options.component';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
-  imports: [JsonPipe, DatePipe],
+  imports: [JsonPipe, DatePipe, OptionsComponent],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',
   animations: [
@@ -40,7 +42,9 @@ export class SearchBarComponent {
     /** 
      * Do a search each time the input signal changes.
     */
-    effect(() => this.search());
+    effect(() => {
+      this.search()
+    });
   }
   
   /**
@@ -97,7 +101,11 @@ export class SearchBarComponent {
     // Check if the debounced search input value is not empty.
     if(this.debouncedSignal() !== '' && this.debouncedSignal().length > 3){
       // Call the placesSearch method of the weatherservice object, passing in the debounced search input value.
-      this.weatherservice.placesSearch(this.debouncedSignal());
+      this.weatherservice.placesSearch(this.debouncedSignal()).pipe(
+        take(1)
+      ).subscribe();
+    } else{
+      
     }
   }
   
@@ -108,6 +116,10 @@ export class SearchBarComponent {
     this.inputState = this.inputState === 'out' ? 'in' : 'out';
     if(this.inputState === 'in'){
       this.searchBar()?.nativeElement.focus();
+      this.weatherservice.showOptions.set(true);
+    }
+    if(this.inputState === 'out'){
+      this.weatherservice.showOptions.set(false);
     }
   }
 

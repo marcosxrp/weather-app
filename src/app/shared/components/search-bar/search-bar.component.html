@@ -1,12 +1,15 @@
-<div class="search_container">
-    <button (click)="toggleInputState()" >
-        <img src="assets/icons/search-alt-regular-24.png" alt="search icon">
-    </button>
+<div class="search-response">
+    <div class="search_container">
+        <button (click)="toggleInputState()" >
+            <img src="assets/icons/search-alt-regular-24.png" alt="search icon">
+        </button>
     
-    <input
-        type="text"
-        #searchBar
-        (input)="updateSearchSignal(searchBar)"
-        [@slideInOut]="inputState"
-    />
+        <input
+            type="text"
+            #searchBar
+            (input)="updateSearchSignal(searchBar)"
+            [@slideInOut]="inputState"
+        />
+    </div>
+    <app-options/>
 </div>

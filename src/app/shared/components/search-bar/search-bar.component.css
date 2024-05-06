@@ -1,36 +1,41 @@
-.search_container{
+.search-response{
     /* use this variables to control the design */
     --input-max-width: 400px;
     --height: 3rem;
     --padding-inline: 1rem;
 
-    display: flex;
-    justify-content: center;
+    padding-inline: var(--padding-inline);
 
-    & button{
-        cursor: pointer;
-        height: var(--height);
-        width: var(--height);
-        background-color: var(--items-background);
-        border: 1px solid var(--border-color);
-        border-radius: calc(var(--height) / 2);
-        backdrop-filter: blur(3px);
-    }
-
-    & input{
-        width: min(var(--input-max-width) ,calc(100% - var(--height) - var(--padding-inline)));
-        /* width: min(var(--max-width), 100% - var(--height) - var(--gap) - 2rem); */
-        height: var(--height);
-        background-color: var(--items-background);
-        border: 1px solid var(--border-color);
-        border-radius: calc(var(--height) / 2);
-        backdrop-filter: blur(3px);
-
-        color: var(--main-color);
-        font-size: 1.1rem;
-        text-align: center;
-    }
-    & input:focus{
-        outline: none;
+    
+    .search_container{
+        position: relative;
+        display: flex;
+        justify-content: center;
+    
+        & button{
+            cursor: pointer;
+            height: var(--height);
+            width: var(--height);
+            background-color: var(--items-background);
+            border: 1px solid var(--border-color);
+            border-radius: calc(var(--height) / 2);
+            backdrop-filter: blur(3px);
+        }
+    
+        & input{
+            width: min(var(--input-max-width) ,calc(100% - var(--height)));
+            height: var(--height);
+            background-color: var(--items-background);
+            border: 1px solid var(--border-color);
+            border-radius: calc(var(--height) / 2);
+            backdrop-filter: blur(3px);
+    
+            color: var(--main-color);
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        & input:focus{
+            outline: none;
+        }
     }
 }

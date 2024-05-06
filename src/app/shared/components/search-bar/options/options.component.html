@@ -1,0 +1,7 @@
+@if (weatherService.showOptions()) {
+    <div class="options">
+        @for (city of weatherService.PlacesSearchResponse(); track $index) {
+            <p (click)="weatherService.selectLocal(city)" > {{ city['name']}} - {{ city['region'] }}</p>
+        }
+    </div>
+}
