@@ -35,17 +35,12 @@ export class SearchBarComponent {
   private searchInput: WritableSignal<string> = signal('') // Signal to hold the search input value.
   private debouncedSignal = this.debounceSignal(this.searchInput, 1000);
   protected inputState: string= 'out';
-  protected date = signal(new Date());
-  private timeZone = signal('America/Bahia');
-  protected localeTime = computed(() => this.date().toLocaleTimeString('br', { timeZone: `${this.timeZone()}` }))
-  protected localeDate = computed(() => this.date().toLocaleDateString('br', { timeZone: `${this.timeZone()}` }))
   
   constructor(){
     /** 
      * Do a search each time the input signal changes.
     */
     effect(() => this.search());
-    effect(() => setInterval(() => this.date.set(new Date()), 1000))
   }
   
   /**
@@ -111,6 +106,9 @@ export class SearchBarComponent {
    */
   toggleInputState() {
     this.inputState = this.inputState === 'out' ? 'in' : 'out';
+    if(this.inputState === 'in'){
+      this.searchBar()?.nativeElement.focus();
+    }
   }
 
 }
