@@ -1,20 +1,23 @@
-import { Component, ElementRef, Signal, WritableSignal, effect, inject, signal, viewChild} from '@angular/core';
+import { Component, ElementRef, Signal, WritableSignal, computed, effect, inject, signal, viewChild} from '@angular/core';
 import { WeatherService } from '../../../core/services/weather.service';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { JsonPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-search-bar',
   standalone: true,
-  imports: [],
+  imports: [JsonPipe, DatePipe],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css',
   animations: [
     trigger('slideInOut', [
       state('in', style({
+        transform: 'scaleX(1)',
         transformOrigin: 'left center',
         opacity: 1
       })),
       state('out', style({
+        transform: 'scaleX(0)',
         transformOrigin: 'left center',
         opacity: 0
       })),
@@ -32,12 +35,17 @@ export class SearchBarComponent {
   private searchInput: WritableSignal<string> = signal('') // Signal to hold the search input value.
   private debouncedSignal = this.debounceSignal(this.searchInput, 1000);
   protected inputState: string= 'out';
+  protected date = signal(new Date());
+  private timeZone = signal('America/Bahia');
+  protected localeTime = computed(() => this.date().toLocaleTimeString('br', { timeZone: `${this.timeZone()}` }))
+  protected localeDate = computed(() => this.date().toLocaleDateString('br', { timeZone: `${this.timeZone()}` }))
   
   constructor(){
     /** 
      * Do a search each time the input signal changes.
     */
     effect(() => this.search());
+    effect(() => setInterval(() => this.date.set(new Date()), 1000))
   }
   
   /**

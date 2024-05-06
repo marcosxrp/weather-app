@@ -23,7 +23,7 @@ export class WeatherService{
   }
 
   /**
-   * Get the user's location.
+   * Get the user's location and perform the search.
    */
   getLocation(){
     if (navigator.geolocation) {
@@ -47,7 +47,13 @@ export class WeatherService{
    */
   placesSearch(local: string){
     this.http.get(`${environment.baseUrl}/search.json?key=${environment.apiKey}&q=${local}`)
-    .subscribe(response => console.log(response)); // Log the API response
+    .subscribe(response => {
+      console.log(response)
+      let locations = response as LocationsModel[];
+      let location = locations[0];
+      this.selectLocal(location);
+    
+    }); // Log the API response
   }
 
   selectLocal(local: LocationsModel){
