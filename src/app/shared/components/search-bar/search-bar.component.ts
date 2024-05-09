@@ -42,9 +42,7 @@ export class SearchBarComponent {
     /** 
      * Do a search each time the input signal changes.
     */
-    effect(() => {
-      this.search()
-    });
+    effect(() => this.search());
   }
   
   /**
