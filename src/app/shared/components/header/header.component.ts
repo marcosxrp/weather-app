@@ -16,11 +16,11 @@ export class HeaderComponent {
 
   // Variables
   protected date = signal(new Date());
-  protected newDate = computed(() => this.date().toLocaleString('br', {timeZone: this.weatherservice.forecastTimeResponse()?.location['tz_id']}))
+  protected newDate = computed(() => this.date().toLocaleString('en-US', {timeZone: this.weatherservice.forecastTimeResponse()?.location['tz_id']}))
 
   constructor() {
     this.date.set(new Date());
     console.log(this.date())
-    setInterval(() => this.date.set(new Date()));
+    setInterval(() => this.date.set(new Date()), 1000);
   }
 }
