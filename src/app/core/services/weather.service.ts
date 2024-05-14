@@ -13,11 +13,10 @@ export class WeatherService{
 
   // Variables
   private userLanguage = signal('');
-  public latitude: WritableSignal<number | null> = signal(null); // Signal to store the latitude
-  public longitude: WritableSignal<number | null> = signal(null); // Signal to store the longitude
   public PlacesSearchResponse: WritableSignal<LocationsModel[] | null> = signal(null); // Signal to store the API places search response
   public selectedLocal: WritableSignal<LocationsModel | null> = signal(null); // Signal to store the selected local
   public showOptions: WritableSignal<boolean> = signal(false); // Signal to control the visibility of the options
+  public forecastTimeResponse: WritableSignal<any | null> = signal(null); // Signal to store the API forecast time response
 
   constructor() {
     this.getLocation() // Get user location on construct
@@ -38,6 +37,7 @@ export class WeatherService{
               let locations = response as LocationsModel[];
               let location = locations[0];
               this.selectLocal(location);
+              this.forecastTimeSearch();
           });
         },
         (error) => {
@@ -59,7 +59,6 @@ export class WeatherService{
       tap(response => {
         this.PlacesSearchResponse.set(response as LocationsModel[]);
         this.showOptions.set(true);
-        console.log(response);
       })
     );
   }
@@ -67,6 +66,15 @@ export class WeatherService{
   selectLocal(local: LocationsModel){
     this.selectedLocal.set(local);
     this.showOptions.set(false);
+  }
+
+  forecastTimeSearch(){
+    this.http.get(`${environment.baseUrl}/forecast.json?key=${environment.apiKey}&q=id:${this.selectedLocal()?.id}&days=3&aqi=no&alerts=no`).subscribe(
+      response => {
+        this.forecastTimeResponse.set(response);
+        console.log(this.forecastTimeResponse());
+      }
+    )
   }
 }
 

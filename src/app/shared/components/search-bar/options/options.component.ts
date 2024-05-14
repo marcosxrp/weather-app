@@ -1,6 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject} from '@angular/core';
 import { WeatherService } from '../../../../core/services/weather.service';
 import { JsonPipe } from '@angular/common';
+import { LocationsModel } from '../../../../core/models/locationsModel';
 
 @Component({
   selector: 'app-options',
@@ -14,5 +15,10 @@ export class OptionsComponent {
   protected weatherService = inject(WeatherService);
 
   // Variables
+
+  clicked(city: LocationsModel){
+    this.weatherService.selectLocal(city);
+    this.weatherService.forecastTimeSearch();
+  }
 
 }
