@@ -12,6 +12,6 @@
         />
     </div>
     <div class="options_div">
-        <app-options [searchBar]="searchBar" />
+        <app-options (clickOutput)="toggleInputState()" [searchBar]="searchBar" />
     </div>
 </div>

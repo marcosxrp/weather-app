@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Renderer2, effect, inject, input, viewChild} from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2, effect, inject, input, output, viewChild} from '@angular/core';
 import { WeatherService } from '../../../../core/services/weather.service';
 import { JsonPipe } from '@angular/common';
 import { LocationsModel } from '../../../../core/models/locationsModel';
@@ -18,6 +18,7 @@ export class OptionsComponent {
   // Variables
   searchBar = input<HTMLInputElement>();
   options_div = viewChild<ElementRef>("options_div");
+  clickOutput = output<void>();
 
   constructor(){
     effect(() => {
@@ -37,6 +38,7 @@ export class OptionsComponent {
   clicked(city: LocationsModel){
     this.weatherService.selectLocal(city);
     this.weatherService.forecastTimeSearch();
+    this.clickOutput.emit();
   }
 
 }

@@ -102,8 +102,6 @@ export class SearchBarComponent {
       this.weatherservice.placesSearch(this.debouncedSignal()).pipe(
         take(1)
       ).subscribe();
-    } else{
-      
     }
   }
   
