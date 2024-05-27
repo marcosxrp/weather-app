@@ -36,8 +36,10 @@ export class OptionsComponent {
   }
 
   clicked(city: LocationsModel){
-    this.weatherService.selectLocal(city);
-    this.weatherService.forecastTimeSearch();
+    if(this.weatherService.selectedLocal() !== city){
+      this.weatherService.selectLocal(city);
+      this.weatherService.forecastTimeSearch();
+    }
     this.clickOutput.emit();
   }
 
