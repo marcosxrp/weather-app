@@ -69,7 +69,7 @@ export class WeatherService{
   }
 
   forecastTimeSearch(){
-    this.http.get(`${environment.baseUrl}/forecast.json?key=${environment.apiKey}&q=id:${this.selectedLocal()?.id}&days=3&aqi=no&alerts=no`).subscribe(
+    this.http.get(`${environment.baseUrl}/forecast.json?key=${environment.apiKey}&q=id:${this.selectedLocal()?.id}&days=3&aqi=no&alerts=no&lang=${this.userLanguage()}`).subscribe(
       response => {
         this.forecastTimeResponse.set(response);
         console.log(this.forecastTimeResponse());

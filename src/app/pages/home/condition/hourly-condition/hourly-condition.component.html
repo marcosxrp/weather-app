@@ -1,0 +1,9 @@
+<div class="hour_container">
+    <h3> {{ padStartHour() }}h </h3>
+    <img [src]="iconUrl()" alt="condition image">
+    <span> {{ temp() }}° </span>
+    <div class="rain">
+        <img src="assets/icons/droplet-regular-24.png" alt="rain">
+        <p> {{ rainChance() }}% </p>
+    </div>
+</div>

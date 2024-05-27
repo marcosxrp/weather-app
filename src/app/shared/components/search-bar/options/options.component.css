@@ -1,8 +1,10 @@
 .options{
+    position: absolute;
     margin-left: var(--height);
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 
     p{
         width: min(var(--input-max-width), 100%);

@@ -1,0 +1,16 @@
+<div class="condition_container">
+    <p>{{ weatherService.forecastTimeResponse()?.['current']?.['condition']?.['text'] }}</p>
+    <span> Temp: {{ weatherService.forecastTimeResponse()?.['current']?.['temp_c'] }}°</span>
+    <img [src]="weatherService.forecastTimeResponse()?.['current']?.['condition']?.['icon']" alt="condition image">
+</div>
+<div class="hourly_condition">
+    @for (hour of weatherService.forecastTimeResponse()?.['forecast']?.['forecastday']?.['0']?.['hour']; track $index){
+        <app-hourly-condition
+        [iconUrl]="hour?.['condition']?.['icon']"
+        [temp]="hour?.['temp_c']"
+        [rainChance]="hour?.['chance_of_rain']"
+        [hour]="$index"
+        />
+    }
+</div>
+

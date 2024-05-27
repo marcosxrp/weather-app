@@ -1,7 +1,7 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { WeatherService } from '../../../core/services/weather.service';
-import { DatePipe, JsonPipe } from '@angular/common';
+import { DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-header',
