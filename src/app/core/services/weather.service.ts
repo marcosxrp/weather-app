@@ -2,7 +2,7 @@ import { Injectable, WritableSignal, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { LocationsModel } from '../models/locationsModel';
-import { take, tap } from 'rxjs';
+import { catchError, take, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +20,11 @@ export class WeatherService{
 
   constructor() {
     this.getLocation() // Get user location on construct
-    this.userLanguage.set(navigator.language.split('-')[0]);
+    this.userLanguage.set(navigator.language.split('-')[0]); // Get the user language to future fetchs
   }
 
   /**
-   * Get the user's location and perform the search.
+   * Get the user's location and perform the initial search.
    */
   getLocation(){
     if (navigator.geolocation) {
@@ -32,6 +32,7 @@ export class WeatherService{
         (position) => {
           this.placesSearch(position.coords.latitude + ',' + position.coords.longitude).pipe(
             take(1)
+            // Unsubscribe after the first emission
           ).subscribe(
               response => {
               let locations = response as LocationsModel[];
@@ -56,9 +57,14 @@ export class WeatherService{
    */
   placesSearch(local: string){
     return this.http.get(`${environment.baseUrl}/search.json?key=${environment.apiKey}&q=${local}`).pipe(
+      take(1),
       tap(response => {
         this.PlacesSearchResponse.set(response as LocationsModel[]);
         this.showOptions.set(true);
+      }),
+      catchError(error => {
+        console.error('Error fetching places:', error);
+        return throwError(() => "an error ocurred while searching places");
       })
     );
   }
@@ -69,12 +75,23 @@ export class WeatherService{
   }
 
   forecastTimeSearch(){
-    this.http.get(`${environment.baseUrl}/forecast.json?key=${environment.apiKey}&q=id:${this.selectedLocal()?.id}&days=3&aqi=no&alerts=no&lang=${this.userLanguage()}`).subscribe(
-      response => {
-        this.forecastTimeResponse.set(response);
-        console.log(this.forecastTimeResponse());
-      }
-    )
+    const localId = this.selectedLocal()?.id;
+    if(localId){
+      this.http.get(`${environment.baseUrl}/forecast.json?key=${environment.apiKey}&q=id:${localId}&days=3&aqi=no&alerts=no&lang=${this.userLanguage()}`).pipe(
+        catchError(error => {
+          console.error('Error fetching forecast time:', error);
+          return throwError(() => "an error ocurred while searching forecast time");
+        }),
+        take(1)
+      ).subscribe(
+        response => {
+          this.forecastTimeResponse.set(response);
+          console.log(this.forecastTimeResponse());
+        }
+      )
+    } else{
+      console.error("No location selected for forecast search")
+    }
   }
 }
 

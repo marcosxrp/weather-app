@@ -20,6 +20,7 @@ export class AppComponent{
 
   
   constructor() {
+    // Set the background image
     effect(() => {
       switch(this.weatherService.forecastTimeResponse()?.current?.condition?.code){
       case 1030:

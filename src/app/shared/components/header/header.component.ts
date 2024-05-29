@@ -18,9 +18,11 @@ export class HeaderComponent {
   protected date = signal(new Date());
   protected newDate = computed(() => this.date().toLocaleString('en-US', {timeZone: this.weatherservice.forecastTimeResponse()?.location['tz_id']}))
 
+  /**
+   * Define a new date and a timer to update it every second
+   */
   constructor() {
     this.date.set(new Date());
-    console.log(this.date())
     setInterval(() => this.date.set(new Date()), 1000);
   }
 }

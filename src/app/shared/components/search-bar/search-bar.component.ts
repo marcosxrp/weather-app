@@ -99,9 +99,7 @@ export class SearchBarComponent {
     // Check if the debounced search input value is not empty.
     if(this.debouncedSignal() !== '' && this.debouncedSignal().length > 3){
       // Call the placesSearch method of the weatherservice object, passing in the debounced search input value.
-      this.weatherservice.placesSearch(this.debouncedSignal()).pipe(
-        take(1)
-      ).subscribe();
+      this.weatherservice.placesSearch(this.debouncedSignal()).subscribe();
     }
   }
   
