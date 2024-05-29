@@ -2,7 +2,7 @@
     @for (day of weatherService.forecastTimeResponse()?.["forecast"]?.["forecastday"]; track $index) {
         @if ($index !== 0) {
             <div class="day">
-                <h4>{{ day?.["date"] }}</h4>
+                <h4>{{ (thisDay + $index) | weekday }}</h4>
                 <div class="info">
                     <img [src]="day?.['day']?.['condition']?.['icon']" alt="weather icon">
                     <div class="minmax_temp">
@@ -11,8 +11,11 @@
                         <p>{{ day?.["day"]?.["maxtemp_c"] }}°</p>
                     </div>
                     <div class="rain_chance">
-                        <img src="assets/icons/droplet-regular-24.png" alt="rain drop">
-                        <span>{{ day?.["day"]?.["daily_chance_of_rain"] }}%</span>
+                        <div class="chance">
+                            <img src="assets/icons/droplet-regular-24.png" alt="rain drop">
+                            <span>{{ day?.["day"]?.["daily_chance_of_rain"] }}%</span>
+                        </div>
+                        <span class="milimeters">{{ day?.["day"]?.["totalprecip_mm"] }}mm</span>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 
     <div class="info">
         <h2> <img src="assets/icons/map-solid-24.png" alt="map icon"> {{ weatherservice.forecastTimeResponse()?.location['name']}} - {{ weatherservice.forecastTimeResponse()?.location['region']}} </h2>
-        <span>({{ this.newDate() | date: 'MM'}}/{{ this.newDate() | date: 'dd' }}/{{ this.newDate() | date: 'yyyy'}} - {{ this.newDate() | date: 'HH:mm:ss'}})</span>
+        <span>({{ this.newDate() | date: 'dd' }}/{{ this.newDate() | date: 'MM'}}/{{ this.newDate() | date: 'yyyy'}} - {{ this.newDate() | date: 'HH:mm:ss'}})</span>
     </div>
 
     <div>
