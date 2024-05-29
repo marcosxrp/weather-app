@@ -33,9 +33,9 @@
             border-radius: calc(var(--height) / 2);
             backdrop-filter: blur(3px);
     
-            color: var(--main-color);
             font-size: 1.1rem;
             text-align: center;
+            color: var(--main-color);
         }
         & input:focus{
             outline: none;

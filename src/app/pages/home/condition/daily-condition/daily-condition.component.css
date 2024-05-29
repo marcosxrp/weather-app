@@ -1,0 +1,44 @@
+.daily_condition{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33%, 1fr));
+
+    @media screen and (max-width: 700px) {
+        grid-template-columns: 1fr;
+    }
+
+    .day{
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        text-align: center;
+        padding-inline: 1rem;
+
+        .info{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .minmax_temp{
+                font-weight: 700;
+                display: flex;
+
+                :first-child{
+                    color: blue;
+                }
+
+                :last-child{
+                    color: red;
+                }
+
+                span{
+                    margin-inline: .2em;
+                }
+            }
+
+            .rain_chance{
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
