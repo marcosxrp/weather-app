@@ -1,4 +1,27 @@
-# Myapp
+# KyWeather
+
+## Introduction
+
+This is a weather application built with Angular that allows users to:
+
+* See the current weather conditions for their location (if permission is granted).
+* Search for weather information in any city worldwide.
+
+The app displays the following weather data:
+
+* City and State
+* Current Date and Time
+* Weather description (e.g., sunny, cloudy, rainy)
+* Current temperature in Celsius
+* Weather icon image
+* Hourly forecast for the next few hours
+* Daily forecast for the next 2 days (limited by API plan)
+
+Key Features:
+
+* Location-based weather on user permission.
+* City search functionality with weather data update.
+* Clean and user-friendly interface.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.5.
 
