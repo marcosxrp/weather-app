@@ -11,7 +11,7 @@
 
 body{
     background: rgb(49,167,186);
-    background: linear-gradient(90deg, rgba(49,167,186,1) 0%, rgba(44,42,177,1) 100%);
+    background: fixed linear-gradient(90deg, rgba(49,167,186,1) 0%, rgba(44,42,177,1) 100%);
     color: var(--main-color);
 }
 
