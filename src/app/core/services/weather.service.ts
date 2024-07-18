@@ -46,7 +46,16 @@ export class WeatherService{
         }
       );
     } else {
-      console.error('Geolocation is not supported by this browser.');
+      this.placesSearch( -23.5489 + ',' + -46.6388).pipe(
+        take(1)
+        // Unsubscribe after the first emission
+      ).subscribe(
+          response => {
+          let locations = response as LocationsModel[];
+          let location = locations[0];
+          this.selectLocal(location);
+          this.forecastTimeSearch();
+      });
     }
   }
 
